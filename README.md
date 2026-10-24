@@ -3,7 +3,7 @@
 A shared workspace where ocean freight forwarders and drayage carriers coordinate container moves:
 jobs, delivery orders, documents, messages, statuses and proof of delivery.
 
-**Status: Milestone 1 of 7** — accounts, companies, roles and permissions.
+**Status: Milestones 1–2 of 7** — accounts, roles and permissions; carrier profiles, directory and approvals; public website.
 The full plan (architecture, schema, permission model and milestones) is in
 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
@@ -22,6 +22,18 @@ The full plan (architecture, schema, permission model and milestones) is in
 Roles: carriers have **Owner, Administrator, Dispatcher, Driver**; forwarders have
 **Owner, Administrator, Forwarder user**. The database rejects a role that doesn't fit the
 company type.
+
+### Milestone 2
+
+- Public website: home page, pricing, and a "talk to a specialist" form (requests appear under Administration)
+- Carriers: carrier profile (description, hours, SCAC/USDOT/MC, dispatch contacts, insurance expiry), coverage
+  (ports, terminals, delivery areas, container types, equipment, services), opt-in directory listing, customers list
+- Forwarders: carrier directory with filters, carrier detail pages, private approved list (members suggest,
+  owners/admins approve, suspend or remove), internal notes the carrier never sees
+- Contact details and insurance are shown only to forwarders that approved the carrier
+- Platform admins can verify carriers; changing insurance or USDOT/MC sends a carrier back to review
+
+Photos come from Unsplash; swap them in `src/lib/photos.ts`.
 
 ## Run it
 

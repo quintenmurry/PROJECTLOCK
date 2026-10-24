@@ -38,8 +38,12 @@ export default async function Dashboard() {
 
   const next =
     company.kind === "forwarder"
-      ? ["Find and approve carriers in the carrier directory", "Create jobs and send them to carriers, including carriers without an account", "Track acknowledgments, documents and PODs on one dashboard"]
-      : ["Publish your carrier profile: ports, terminals, equipment", "Receive, accept and dispatch jobs from forwarders", "Collect gate receipts and PODs from drivers on their phones"];
+      ? ["Create jobs and send them to carriers, including carriers without an account", "Attach delivery orders and collect PODs on each job", "Track acknowledgments, milestones and exceptions on one dashboard"]
+      : ["Receive, accept and dispatch jobs from forwarders", "Keep every job's documents and messages in one place", "Collect gate receipts and PODs from drivers on their phones"];
+  const start =
+    company.kind === "forwarder"
+      ? { href: "/carriers", title: "Build your approved carrier list", body: "Search carriers by port, terminal, delivery area and equipment, then approve the ones you work with." }
+      : { href: "/profile", title: "Complete your carrier profile", body: "Add your ports, terminals, delivery areas and equipment, then list your company so forwarders can find you." };
 
   return (
     <>
@@ -53,6 +57,14 @@ export default async function Dashboard() {
         {manage && <Stat label="Pending invitations" value={invites.count ?? 0} href="/team" />}
         <Stat label="Your role" value={ROLE_LABEL[company.role]} />
       </div>
+
+      <Link href={start.href} className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-brand-100 bg-brand-50 px-5 py-4 hover:border-brand-500">
+        <div>
+          <div className="font-semibold text-brand-900">{start.title}</div>
+          <p className="mt-0.5 text-sm text-brand-900/80">{start.body}</p>
+        </div>
+        <span className="text-sm font-medium text-brand-700">Open</span>
+      </Link>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-5">
         <Card className="lg:col-span-3">

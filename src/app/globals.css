@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   /* Brand: harbor blue, used sparingly for primary actions and focus */
   --color-brand-50: #eef5fb;
   --color-brand-100: #d5e6f4;
@@ -10,9 +10,18 @@
   --color-brand-600: #1f5888;
   --color-brand-700: #18466d;
   --color-brand-900: #0d2740;
+  --color-brand-950: #081a2c;
+  /* Signal amber: reserved for things that need attention (missing documents, exceptions) */
+  --color-signal-50: #fdf6e9;
+  --color-signal-400: #e9a23b;
+  --color-signal-700: #8a5a12;
 }
 
 html { color-scheme: light; }
 body { @apply bg-slate-50 text-slate-900 antialiased; }
 
 :focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}

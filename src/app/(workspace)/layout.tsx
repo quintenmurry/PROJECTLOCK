@@ -12,6 +12,9 @@ export default async function WorkspaceLayout({ children }: { children: React.Re
   const nav = (
     <nav className="space-y-0.5" aria-label="Main">
       <NavLink href="/dashboard">Overview</NavLink>
+      {company.kind === "forwarder" && <NavLink href="/carriers">Carriers</NavLink>}
+      {company.kind === "carrier" && <NavLink href="/profile">Carrier profile</NavLink>}
+      {company.kind === "carrier" && <NavLink href="/customers">Customers</NavLink>}
       <NavLink href="/team">Team</NavLink>
       <NavLink href="/settings/company">Company</NavLink>
       <NavLink href="/account">My account</NavLink>

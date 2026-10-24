@@ -213,9 +213,9 @@ the `update_status` permission, or a verified integration can record pickup/deli
 
 | # | Scope | Status |
 |---|---|---|
-| 1 | Auth (sign up, sign in, password reset), company creation & onboarding, roles, team invitations, member management, company switcher, platform admin (companies, suspend/reactivate, audit log), RLS + isolation tests | **This delivery** |
-| 2 | Carrier profiles, directory search/filter, per-forwarder approvals | Next |
-| 3 | Job creation (multi-container), send to carrier, guest links, accept/decline, status workflow, job detail + timeline | |
+| 1 | Auth (sign up, sign in, password reset), company creation & onboarding, roles, team invitations, member management, company switcher, platform admin (companies, suspend/reactivate, audit log), RLS + isolation tests | Done |
+| 2 | Carrier profiles, directory search/filter, per-forwarder approvals, platform verification, public website + specialist inquiries | Done |
+| 3 | Job creation (multi-container), send to carrier, guest links, accept/decline, status workflow, job detail + timeline | Next |
 | 4 | Private document storage, required-doc tracking, POD, job messaging with internal notes | |
 | 5 | Dashboards & filters, notifications + exception queue, audit history, reports, CSV export | |
 | 6 | Mobile driver workflow, driver assignment, operational extras | |
