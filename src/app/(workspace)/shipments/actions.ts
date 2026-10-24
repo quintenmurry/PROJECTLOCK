@@ -235,3 +235,82 @@ export async function revokeShareLink(form: FormData) {
   revalidatePath(`/shipments/${p.data.shipmentId}`);
   redirect(`/shipments/${p.data.shipmentId}#sharing`);
 }
+
+// ---------------------------------------------------------------- dispatch to a trucker
+export async function sendDispatch(_: ActionState, form: FormData): Promise<ActionState> {
+  const company = await getActiveCompany();
+  const p = z.object({
+    id: uuid,
+    target: z.string(),
+    name: z.string().trim().max(120),
+    email: z.string().trim().toLowerCase().max(254).refine((v) => v === "" || z.string().email().safeParse(v).success, "Enter a valid email or leave it blank."),
+    phone: z.string().trim().max(40),
+    message: z.string().trim().max(1000),
+    days: z.coerce.number().int().min(1).max(90),
+    docs: z.array(uuid).max(30),
+  }).safeParse({
+    id: form.get("shipmentId"), target: form.get("target") ?? "other", name: form.get("name") ?? "",
+    email: form.get("email") ?? "", phone: form.get("phone") ?? "", message: form.get("message") ?? "",
+    days: form.get("days") ?? 14, docs: form.getAll("doc").map(String),
+  });
+  if (!p.success) return { error: p.error.issues[0].message };
+  const driverId = p.data.target !== "other" && uuid.safeParse(p.data.target).success ? p.data.target : null;
+  if (!driverId && !p.data.name) return { error: "Enter the trucker's name." };
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("send_dispatch", {
+    p_shipment: p.data.id, p_driver: driverId, p_name: p.data.name, p_email: p.data.email || null,
+    p_phone: p.data.phone || null, p_document_ids: p.data.docs, p_message: p.data.message || null, p_days: p.data.days,
+  });
+  if (error) return { error: friendlyError(error) };
+  const token = (data as { token: string }[])[0].token;
+  const link = `${await siteOrigin()}/share/${token}`;
+  revalidatePath(`/shipments/${p.data.id}`);
+  revalidatePath("/shipments");
+
+  // Build a short summary for the email / text message.
+  const [{ data: s }, { data: cs }] = await Promise.all([
+    supabase.from("shipments").select("shipment_number, pickup_location, pickup_at, delivery_location, delivery_at").eq("id", p.data.id).single(),
+    supabase.from("shipment_containers").select("container_number").eq("shipment_id", p.data.id).order("position"),
+  ]);
+  const when = (iso: string | null) => iso ? new Date(iso).toLocaleString("en-US", { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZone: "America/Chicago" }) : "";
+  const containers = (cs ?? []).map((c) => c.container_number).join(", ");
+  const from = company?.name ?? "Dispatch";
+  const summary = [
+    containers && `Container: ${containers}`,
+    s?.pickup_location && `Pickup: ${s.pickup_location}${s.pickup_at ? ` (${when(s.pickup_at)} CT)` : ""}`,
+    s?.delivery_location && `Deliver to: ${s.delivery_location}${s.delivery_at ? ` (${when(s.delivery_at)} CT)` : ""}`,
+  ].filter(Boolean).join("\n");
+
+  let email = p.data.email;
+  if (driverId && !email) {
+    const { data: prof } = await supabase.from("profiles").select("email").eq("id", driverId).maybeSingle();
+    email = prof?.email ?? "";
+  }
+  let emailed = false;
+  if (email) {
+    const res = await sendEmail({
+      to: email,
+      subject: `Dispatch from ${from}: load #${s?.shipment_number ?? ""}${containers ? ` · ${containers.split(", ")[0]}` : ""}`,
+      text: [
+        `${from} dispatched a load to you.`, "",
+        summary, "",
+        p.data.message && `Note from dispatch: ${p.data.message}\n`,
+        `Load details and documents (DO and anything else dispatch attached):`,
+        link, "",
+        `This link works for ${p.data.days} days.`,
+      ].filter((x) => x !== "").join("\n"),
+    });
+    emailed = res.delivered;
+  }
+  const sms = `sms:${p.data.phone ?? ""}?&body=${encodeURIComponent(`${from} dispatch, load #${s?.shipment_number ?? ""}. Details and DO: ${link}`)}`;
+  return {
+    ok: true,
+    message: emailed
+      ? `Dispatch emailed to ${email}. Copy the link below to text it too. It's shown only once.`
+      : email
+        ? "Dispatch created, but email sending isn't set up yet. Copy the link or text it to the trucker. It's shown only once."
+        : "Dispatch created. Copy the link or text it to the trucker. It's shown only once.",
+    data: { link, sms },
+  };
+}

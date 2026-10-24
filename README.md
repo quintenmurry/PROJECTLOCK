@@ -45,7 +45,11 @@ company type.
   "Download POD" button; no account needed
 - **Driver phone view** (`/driver`): assigned loads only, big Picked up / Delivered / Empty returned
   buttons, camera upload, report a problem, note to dispatch
-- Rates and invoices are never shared; drivers never see them or internal notes
+- **Dispatch a trucker**: from the shipment, send a company driver or an outside owner-operator a
+  secure dispatch sheet by email or text: route, appointments, instructions, seals and only the
+  documents the carrier ticks (DO ticked by default; rate confirmations allowed if the carrier chooses).
+  Sending it marks the load dispatched; opens and downloads show in the activity
+- Rates and invoices are never shared on customer links; drivers never see internal notes
 
 Photos come from Unsplash; swap them in `src/lib/photos.ts`.
 

@@ -10,7 +10,7 @@ import {
   type DocumentType, type ShipmentStatus,
 } from "@/lib/shipments";
 import { revokeShareLink, setDocumentShared, setShipmentStatus } from "../actions";
-import { ExceptionForm, NoteForm, ShareForm } from "./panels";
+import { DispatchForm, ExceptionForm, NoteForm, ShareForm } from "./panels";
 
 export const metadata: Metadata = { title: "Shipment" };
 
@@ -21,7 +21,7 @@ type Doc = {
   uploaded_by: string | null; uploaded_via: string; created_at: string; superseded_at: string | null; upload_complete: boolean;
 };
 type Event = { id: number; kind: string; body: string | null; to_status: ShipmentStatus | null; from_status: ShipmentStatus | null; internal: boolean; actor_id: string | null; source: string; occurred_at: string };
-type Link_ = { id: string; recipient_label: string; recipient_email: string | null; expires_at: string; revoked_at: string | null; open_count: number; last_opened_at: string | null; created_at: string };
+type Link_ = { id: string; kind: "customer" | "dispatch"; recipient_phone: string | null; document_ids: string[] | null; recipient_label: string; recipient_email: string | null; expires_at: string; revoked_at: string | null; open_count: number; last_opened_at: string | null; created_at: string };
 
 export default async function ShipmentPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | undefined>> }) {
   const company = await requireCompany();
@@ -36,7 +36,7 @@ export default async function ShipmentPage({ params, searchParams }: { params: P
     supabase.from("shipment_containers").select("container_number, size_type, seal_number").eq("shipment_id", id).order("position"),
     supabase.from("shipment_documents").select("id, doc_type, file_name, mime_type, size_bytes, shared_with_customer, uploaded_by, uploaded_via, created_at, superseded_at, upload_complete").eq("shipment_id", id).eq("upload_complete", true).order("created_at", { ascending: false }),
     supabase.from("shipment_events").select("id, kind, body, to_status, from_status, internal, actor_id, source, occurred_at").eq("shipment_id", id).order("occurred_at", { ascending: false }).limit(200),
-    supabase.from("shipment_share_links").select("id, recipient_label, recipient_email, expires_at, revoked_at, open_count, last_opened_at, created_at").eq("shipment_id", id).order("created_at", { ascending: false }),
+    supabase.from("shipment_share_links").select("id, kind, recipient_phone, document_ids, recipient_label, recipient_email, expires_at, revoked_at, open_count, last_opened_at, created_at").eq("shipment_id", id).order("created_at", { ascending: false }),
     supabase.rpc("company_drivers", { p_company: company.company_id }),
   ]);
   if (!s) notFound();
@@ -46,7 +46,14 @@ export default async function ShipmentPage({ params, searchParams }: { params: P
   const current = docs.filter((d) => !d.superseded_at);
   const replaced = docs.filter((d) => d.superseded_at);
   const events = (eventsRaw ?? []) as Event[];
-  const links = (linksRaw ?? []) as Link_[];
+  const allLinks = (linksRaw ?? []) as Link_[];
+  const links = allLinks.filter((l) => l.kind === "customer");
+  const dispatches = allLinks.filter((l) => l.kind === "dispatch");
+  const driverList = (drivers ?? []) as { user_id: string; full_name: string; email: string }[];
+  const dispatchDocs = current.map((d) => ({
+    id: d.id, label: DOC_LABEL[d.doc_type], file: d.file_name, preselect: d.doc_type === "delivery_order",
+    private: d.doc_type === "rate_confirmation" || d.doc_type === "invoice",
+  }));
   const hasPod = current.some((d) => d.doc_type === "pod");
   const missingPod = needsPod(status, hasPod);
   const next = NEXT_ACTION[status];
@@ -210,6 +217,43 @@ export default async function ShipmentPage({ params, searchParams }: { params: P
         </div>
 
         <div className="space-y-6">
+          {/* Dispatch */}
+          {!["completed", "canceled"].includes(status) && (
+            <Card>
+              <div id="dispatch" className="scroll-mt-6" />
+              <CardHeader title={dispatches.length ? "Dispatch" : "Dispatch a trucker"} description="Email or text the load and the documents they need." />
+              <div className="px-5 py-4">
+                <DispatchForm shipmentId={id} drivers={driverList} docs={dispatchDocs} currentDriver={s.driver_user_id} />
+              </div>
+              {dispatches.length > 0 && (
+                <ul className="divide-y divide-slate-100 border-t border-slate-200">
+                  {dispatches.map((l) => {
+                    const live = !l.revoked_at && new Date(l.expires_at) > new Date();
+                    return (
+                      <li key={l.id} className="px-5 py-3 text-sm">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <div className="font-medium text-slate-900">{l.recipient_label}</div>
+                            <div className="truncate text-xs text-slate-500">{[l.recipient_email, l.recipient_phone].filter(Boolean).join(" · ") || "Link only"} · {(l.document_ids ?? []).length} document{(l.document_ids ?? []).length === 1 ? "" : "s"}</div>
+                          </div>
+                          {live ? <Badge tone={l.open_count ? "green" : "neutral"}>{l.open_count ? "Opened" : "Sent"}</Badge> : <Badge>{l.revoked_at ? "Turned off" : "Expired"}</Badge>}
+                        </div>
+                        <div className="mt-1 text-xs text-slate-500">Sent {fmtDateTime(l.created_at)}{l.last_opened_at && <> · last opened {fmtDateTime(l.last_opened_at)}</>}</div>
+                        {live && (
+                          <form action={revokeShareLink} className="mt-1.5">
+                            <input type="hidden" name="linkId" value={l.id} />
+                            <input type="hidden" name="shipmentId" value={id} />
+                            <button type="submit" className="text-xs font-medium text-red-700 hover:underline">Turn off link</button>
+                          </form>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </Card>
+          )}
+
           {/* Problem */}
           <Card className={s.exception_open ? "border-red-200 bg-red-50/40" : undefined}>
             <CardHeader title={s.exception_open ? "Open problem" : "Problems"} />
@@ -307,6 +351,7 @@ function describe(e: Event) {
     case "link_opened": return (e.body ?? "opened the shared link").replace(/^.* opened/, "opened");
     case "document_downloaded": return (e.body ?? "downloaded a document").replace(/^.* downloaded/, "downloaded");
     case "updated": return "updated the details";
+    case "dispatch_sent": return (e.body ?? "sent the dispatch").replace(/^Dispatched to/, "sent the dispatch to");
     default: return e.kind;
   }
 }
