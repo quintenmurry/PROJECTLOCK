@@ -34,6 +34,6 @@ export const ROLES_FOR_KIND: Record<CompanyKind, MemberRole[]> = {
 };
 
 export const KIND_LABEL: Record<CompanyKind, string> = {
-  carrier: "Drayage carrier",
-  forwarder: "Freight forwarder",
+  carrier: "Carrier",
+  forwarder: "Forwarder / broker",
 };

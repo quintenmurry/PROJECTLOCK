@@ -125,7 +125,7 @@ export function Logo({ className }: { className?: string }) {
         <path d="M6 6v12M10 6v12M14 6v12M18 6v12" stroke="currentColor" strokeWidth="1.6" />
         <rect x="2" y="6" width="20" height="12" rx="2" fill="none" stroke="currentColor" strokeWidth="1.6" />
       </svg>
-      <span>{process.env.NEXT_PUBLIC_APP_NAME ?? "ProjectLock"}</span>
+      <span>{process.env.NEXT_PUBLIC_APP_NAME ?? "Haulbook"}</span>
     </span>
   );
 }

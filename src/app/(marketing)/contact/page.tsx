@@ -10,7 +10,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
     <>
       <PageHero
         title="Talk to a specialist"
-        lead="Tell us about your lanes and volume. A specialist will reply by email to set up pricing and help you bring your carriers or forwarders on board."
+        lead="Tell us about your fleet and the paperwork headaches you want gone. A Haulbook specialist will reply by email to help you get set up."
       />
       <section className="bg-slate-50">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[1fr_1.6fr] lg:py-20">
@@ -18,15 +18,15 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             <div>
               <h2 className="font-semibold text-slate-900">What happens next</h2>
               <ol className="mt-4 space-y-4 text-[15px] leading-6 text-slate-600">
-                <li className="flex gap-3"><Num n={1} />A specialist reviews your request and replies by email.</li>
-                <li className="flex gap-3"><Num n={2} />We walk through your ports, volume and the partners you already work with.</li>
-                <li className="flex gap-3"><Num n={3} />You get a quote and a plan for your first moves on the platform.</li>
+                <li className="flex gap-3"><Num n={1} />We read your request and reply by email.</li>
+                <li className="flex gap-3"><Num n={2} />We walk through your trucks, drivers, ports and the customers you share paperwork with.</li>
+                <li className="flex gap-3"><Num n={3} />We help you load your first moves and set up a plan that fits.</li>
               </ol>
             </div>
             <div className="rounded-lg border border-slate-200 bg-white p-5">
               <h2 className="font-semibold text-slate-900">Just want to look around?</h2>
-              <p className="mt-2 text-[15px] leading-6 text-slate-600">Carriers can start on the free plan right away, no call needed.</p>
-              <a href="/signup" className="mt-3 inline-block text-sm font-semibold text-brand-600 hover:underline">Create a free account</a>
+              <p className="mt-2 text-[15px] leading-6 text-slate-600">Carriers and owner-operators can start on the free plan right away. No call needed.</p>
+              <a href="/signup" className="mt-3 inline-block text-sm font-semibold text-brand-600 hover:underline">Start free</a>
             </div>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8">

@@ -10,7 +10,7 @@ export default async function SignupPage({ searchParams }: { searchParams: Promi
     <div>
       <h1 className="text-2xl font-semibold tracking-tight">Create your account</h1>
       <p className="mt-1 text-sm text-slate-500">
-        For freight forwarders and drayage carriers. You&apos;ll set up or join your company next.
+        Free for carriers and owner-operators. You&apos;ll set up or join your company next.
       </p>
       <div className="mt-6">
         <SignupForm next={sp.next ?? ""} email={sp.email ?? ""} />

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: process.env.NEXT_PUBLIC_APP_NAME ?? "ProjectLock", template: `%s · ${process.env.NEXT_PUBLIC_APP_NAME ?? "ProjectLock"}` },
+  title: { default: process.env.NEXT_PUBLIC_APP_NAME ?? "Haulbook", template: `%s · ${process.env.NEXT_PUBLIC_APP_NAME ?? "Haulbook"}` },
   description: "One shared record for every drayage move: jobs, delivery orders, status updates and proof of delivery, shared between freight forwarders and trucking carriers.",
 };
 

@@ -1,4 +1,4 @@
-# ProjectLock
+# Haulbook
 
 A shared workspace where ocean freight forwarders and drayage carriers coordinate container moves:
 jobs, delivery orders, documents, messages, statuses and proof of delivery.
@@ -56,7 +56,7 @@ To send real emails, create `.env.local` with:
 
 ```
 RESEND_API_KEY=re_...
-EMAIL_FROM="ProjectLock <notifications@yourdomain.com>"
+EMAIL_FROM="Haulbook <notifications@yourdomain.com>"
 ```
 
 Account emails (confirmation, password reset) are sent by Supabase itself. Its built-in sender

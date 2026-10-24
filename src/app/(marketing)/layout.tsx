@@ -6,8 +6,8 @@ export default async function MarketingLayout({ children }: { children: React.Re
   const user = await getUser();
   const links = [
     { href: "/#how-it-works", label: "How it works" },
-    { href: "/#forwarders", label: "Forwarders" },
-    { href: "/#carriers", label: "Carriers" },
+    { href: "/#drivers", label: "Drivers" },
+    { href: "/#sharing", label: "Sharing PODs" },
     { href: "/pricing", label: "Pricing" },
   ];
   const actions = user ? (
@@ -15,7 +15,7 @@ export default async function MarketingLayout({ children }: { children: React.Re
   ) : (
     <>
       <Link href="/login" className="px-3 py-2 text-sm font-medium text-white/85 hover:text-white">Sign in</Link>
-      <Link href="/signup" className="rounded-md bg-white px-4 py-2 text-sm font-semibold text-brand-900 hover:bg-brand-50">Create account</Link>
+      <Link href="/signup" className="rounded-md bg-white px-4 py-2 text-sm font-semibold text-brand-900 hover:bg-brand-50">Start free</Link>
     </>
   );
 
@@ -23,7 +23,7 @@ export default async function MarketingLayout({ children }: { children: React.Re
     <div className="flex min-h-dvh flex-col bg-white text-slate-900">
       <header className="absolute inset-x-0 top-0 z-20">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-5 sm:px-8">
-          <Link href="/" className="text-white" aria-label="ProjectLock home"><Logo className="text-lg" /></Link>
+          <Link href="/" className="text-white" aria-label="Haulbook home"><Logo className="text-lg" /></Link>
           <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
             {links.map((l) => (
               <Link key={l.href} href={l.href} className="rounded-md px-3 py-2 text-sm font-medium text-white/85 hover:text-white">{l.label}</Link>
@@ -41,7 +41,7 @@ export default async function MarketingLayout({ children }: { children: React.Re
               ) : (
                 <>
                   <Link href="/login" className="block rounded px-3 py-2 text-sm text-slate-800 hover:bg-slate-50">Sign in</Link>
-                  <Link href="/signup" className="block rounded px-3 py-2 text-sm font-semibold text-brand-700">Create account</Link>
+                  <Link href="/signup" className="block rounded px-3 py-2 text-sm font-semibold text-brand-700">Start free</Link>
                 </>
               )}
             </div>
@@ -56,16 +56,16 @@ export default async function MarketingLayout({ children }: { children: React.Re
           <div>
             <Logo className="text-lg text-white" />
             <p className="mt-3 max-w-xs text-sm leading-6 text-slate-400">
-              The shared record for drayage moves between ocean freight forwarders and trucking carriers.
+              Loads and paperwork for drayage carriers, with PODs and status your customers can open from a link.
             </p>
           </div>
-          <FooterCol title="Product" links={[["How it works", "/#how-it-works"], ["For forwarders", "/#forwarders"], ["For carriers", "/#carriers"], ["Security", "/#security"]]} />
+          <FooterCol title="Product" links={[["How it works", "/#how-it-works"], ["For drivers", "/#drivers"], ["Sharing PODs", "/#sharing"], ["For forwarders", "/#forwarders"], ["Security", "/#security"]]} />
           <FooterCol title="Company" links={[["Pricing", "/pricing"], ["Talk to a specialist", "/contact"]]} />
-          <FooterCol title="Account" links={user ? [["Open workspace", "/dashboard"]] : [["Sign in", "/login"], ["Create account", "/signup"]]} />
+          <FooterCol title="Account" links={user ? [["Open workspace", "/dashboard"]] : [["Sign in", "/login"], ["Start free", "/signup"]]} />
         </div>
         <div className="border-t border-white/10">
           <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-2 px-5 py-5 text-xs text-slate-500 sm:px-8">
-            <span>© {new Date().getFullYear()} ProjectLock</span>
+            <span>© {new Date().getFullYear()} Haulbook</span>
             <span>Photography from Unsplash</span>
           </div>
         </div>

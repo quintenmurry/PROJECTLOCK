@@ -5,7 +5,7 @@ import { PHOTOS } from "@/lib/photos";
 import { JobRecordPreview } from "@/components/job-record-preview";
 
 export const metadata: Metadata = {
-  title: { absolute: "ProjectLock · Drayage coordination for forwarders and carriers" },
+  title: { absolute: "Haulbook · Loads and paperwork for drayage carriers" },
 };
 
 const primary = "inline-flex min-h-11 items-center justify-center rounded-md bg-white px-5 text-sm font-semibold text-brand-900 hover:bg-brand-50";
@@ -21,17 +21,17 @@ export default function Home() {
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-brand-950 via-brand-950/85 to-brand-950/30" />
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-20 pt-32 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:pb-28 lg:pt-40">
           <div className="max-w-2xl">
-            <p className="text-sm font-medium text-brand-100">Now onboarding forwarders and drayage carriers</p>
+            <p className="text-sm font-medium text-brand-100">Built for drayage carriers and owner-operators</p>
             <h1 className="mt-4 text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
-              Every container move, one shared record.
+              Every load and every piece of paperwork, in one book.
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-200">
-              ProjectLock gives freight forwarders and drayage carriers one place for the job, the delivery order, every
-              status update and the proof of delivery. No more chasing them across email threads, phone calls and
-              spreadsheets.
+              Haulbook keeps track of your container moves and the documents that go with them: delivery orders, gate
+              receipts, EIRs and signed PODs. When a customer needs the POD or wants to know where a box is, send
+              them a link and they can see it themselves.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Link href="/signup" className={primary}>Create a free account</Link>
+              <Link href="/signup" className={primary}>Start free</Link>
               <Link href="/contact" className={secondaryDark}>Talk to a specialist</Link>
             </div>
           </div>
@@ -45,29 +45,29 @@ export default function Home() {
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_1.3fr] lg:py-24">
           <div>
-            <h2 className="text-3xl font-semibold tracking-tight text-brand-900 sm:text-4xl">The box moves. The paperwork shouldn&apos;t get lost.</h2>
+            <h2 className="text-3xl font-semibold tracking-tight text-brand-900 sm:text-4xl">Stop digging for the POD.</h2>
             <p className="mt-5 max-w-md text-lg leading-8 text-slate-600">
-              One import move touches a forwarder, a dispatcher, a driver, a terminal and a warehouse. Today the
-              details live in whoever&apos;s inbox they landed in.
+              You moved the box. Now the paperwork is in a driver&apos;s camera roll, the DO is buried in an email,
+              and the customer is calling for the third time.
             </p>
           </div>
           <div className="grid gap-px overflow-hidden rounded-xl border border-slate-200 bg-slate-200 sm:grid-cols-2">
             <div className="bg-slate-50 p-6 sm:p-8">
-              <h3 className="font-semibold text-slate-900">How it usually goes</h3>
+              <h3 className="font-semibold text-slate-900">Without Haulbook</h3>
               <ul className="mt-4 space-y-3 text-[15px] leading-6 text-slate-600">
-                <li>The delivery order is an attachment three replies deep.</li>
-                <li>&ldquo;Did you get the job?&rdquo; becomes a phone call.</li>
-                <li>Status lives in a spreadsheet someone updates on Fridays.</li>
-                <li>The POD arrives as a blurry text message, or not at all.</li>
+                <li>PODs come in as texts, photos and paper left in the cab.</li>
+                <li>Customers call dispatch to ask if the box was delivered.</li>
+                <li>Finding a gate receipt from last month means searching three phones.</li>
+                <li>Invoices wait because the paperwork isn&apos;t together.</li>
               </ul>
             </div>
             <div className="bg-white p-6 sm:p-8">
-              <h3 className="font-semibold text-brand-900">How it goes on ProjectLock</h3>
+              <h3 className="font-semibold text-brand-900">With Haulbook</h3>
               <ul className="mt-4 space-y-3 text-[15px] leading-6 text-slate-700">
-                <li>The DO is attached to the job, where everyone can find it.</li>
-                <li>You can see the moment a carrier opens and accepts a job.</li>
-                <li>Milestones are timestamped and show who reported them.</li>
-                <li>Missing PODs are flagged until they&apos;re uploaded.</li>
+                <li>Drivers snap documents straight onto the load from their phone.</li>
+                <li>Customers check status and download the POD from a link.</li>
+                <li>Search any container, booking or B/L number and it&apos;s all there.</li>
+                <li>Loads missing a POD are flagged until it&apos;s uploaded.</li>
               </ul>
             </div>
           </div>
@@ -78,18 +78,18 @@ export default function Home() {
       <section id="how-it-works" className="scroll-mt-8 bg-slate-50">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24">
           <div className="max-w-2xl">
-            <h2 className="text-3xl font-semibold tracking-tight text-brand-900 sm:text-4xl">How a move runs</h2>
-            <p className="mt-4 text-lg leading-8 text-slate-600">The same five steps you already follow, in one place both companies can see.</p>
+            <h2 className="text-3xl font-semibold tracking-tight text-brand-900 sm:text-4xl">How it works</h2>
+            <p className="mt-4 text-lg leading-8 text-slate-600">The way you already run a move, written down once and shared with whoever needs it.</p>
           </div>
           <ol className="mt-12 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-5">
             {[
-              ["Create the job", "The forwarder enters references, pickup and delivery details, and attaches the delivery order. Multi-container bookings are supported."],
-              ["Send it to a carrier", "Pick from your approved carriers, or email any carrier a secure link. They don't need an account to respond."],
-              ["Carrier accepts and dispatches", "The dispatcher accepts, declines or asks a question, then assigns a driver."],
-              ["Driver updates from the road", "Arrival, pickup, delivery and empty return are logged from a phone, with gate receipts and photos."],
-              ["POD closes the job", "The signed POD is uploaded to the job. The forwarder has it immediately, and the record stays searchable."],
+              ["Add the load", "Enter the container, booking or B/L, pickup and delivery, and attach the DO. Or accept a load a customer sent you on Haulbook."],
+              ["Assign a driver", "Pick the driver and truck. They see only their own loads, on their phone."],
+              ["Driver logs the move", "Pickup, delivery and empty return in a tap, with gate receipts, EIRs and photos from the camera."],
+              ["Share it", "Send a link to the forwarder, broker, shipper or warehouse. They see that one load and nothing else."],
+              ["POD closes it out", "The signed POD lands on the load, your customer has it right away, and you have it for the invoice."],
             ].map(([title, body], i) => (
-              <li key={title} className="relative">
+              <li key={title}>
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-900 text-sm font-semibold text-white">{i + 1}</span>
                 <h3 className="mt-4 font-semibold text-slate-900">{title}</h3>
                 <p className="mt-2 text-[15px] leading-6 text-slate-600">{body}</p>
@@ -99,84 +99,110 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Forwarders */}
-      <Audience
-        id="forwarders"
-        photo={PHOTOS.forwarders}
-        title="For freight forwarders"
-        lead="Know where every move stands without asking."
-        points={[
-          ["Find carriers that fit the move", "Search by port, terminal, delivery area, container type and equipment."],
-          ["Keep your own approved list", "Your approvals are private to your company. Another forwarder's list never affects yours."],
-          ["See acknowledgment, not just delivery", "Email sent, link opened, job accepted and milestone confirmed are tracked as separate events."],
-          ["Get the POD without chasing", "Jobs waiting on paperwork are flagged on your dashboard until the document arrives."],
-        ]}
-        cta={{ href: "/signup", label: "Set up your forwarder account" }}
-      />
-
-      {/* Carriers */}
-      <Audience
+      {/* Dispatch / owners */}
+      <Feature
         id="carriers"
-        reverse
         photo={PHOTOS.carriers}
-        title="For drayage carriers"
-        lead="Fewer calls, cleaner paperwork, faster turns."
+        eyebrow="For owners and dispatchers"
+        title="Know where every box stands without making a call."
         points={[
-          ["Every job in one queue", "New, accepted, scheduled today, in progress and waiting on POD, sorted for dispatch."],
-          ["Instructions that don't get lost", "The DO, appointment windows and special instructions live on the job, not in an inbox."],
-          ["Drivers on their phones", "A simple mobile view with only their assigned jobs. Big buttons, minimal typing."],
-          ["Be found by new forwarders", "Publish your ports, terminals and equipment. Contact details stay private until a forwarder approves you."],
+          ["Every load in one list", "New, scheduled today, in progress, waiting on POD and done, with filters for driver, customer and date."],
+          ["Paperwork attached to the load", "DOs, gate receipts, EIRs, damage photos and PODs stay with the move they belong to."],
+          ["Nothing slips", "Loads missing a POD or running late show up at the top until someone deals with them."],
+          ["A history you can search", "Find any container number from last week or last year, with every document still attached."],
         ]}
-        cta={{ href: "/signup", label: "Set up your carrier account" }}
+        cta={{ href: "/signup", label: "Start free" }}
       />
 
-      {/* No-account carriers */}
-      <section className="bg-brand-900 text-white">
+      {/* Drivers */}
+      <Feature
+        id="drivers"
+        reverse
+        photo={PHOTOS.driver}
+        eyebrow="For drivers"
+        title="Built for a phone in a truck cab."
+        points={[
+          ["Only their loads", "Drivers see the moves assigned to them: addresses, appointment times and instructions."],
+          ["Big buttons, little typing", "Arrived, picked up, delivered, empty returned. One tap each, timestamped."],
+          ["Camera straight to the load", "Snap the gate receipt or signed POD and it's filed in the right place."],
+          ["Nothing to install", "It runs in the phone's browser. Send them a sign-in link and they're set."],
+        ]}
+      />
+
+      {/* Share */}
+      <section id="sharing" className="scroll-mt-8 bg-brand-900 text-white">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:py-24">
           <div>
-            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Your carriers can start without signing up.</h2>
+            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Let your customers help themselves.</h2>
             <p className="mt-5 max-w-xl text-lg leading-8 text-slate-300">
-              Send a job to any carrier by email. They get a secure link to that one job and can review it, accept or
-              decline, ask a question and upload documents. If they like working this way, they can create an account
-              in a minute.
+              Whoever needs the POD or a status update (forwarder, broker, shipper or warehouse) gets a secure link
+              to that load. They see the milestones and download the documents you choose to share, without an
+              account and without calling dispatch.
             </p>
             <ul className="mt-8 space-y-3 text-[15px] text-slate-200">
-              <li>Links open only the job they were sent for.</li>
-              <li>They expire automatically and can be revoked at any time.</li>
-              <li>No EDI, no integration project, no software to install.</li>
+              <li>Each link opens one load, never the rest of your book.</li>
+              <li>Rates and internal notes are never shared.</li>
+              <li>Links expire on their own, and you can turn one off any time.</li>
+              <li>You can see when a link was opened and the POD downloaded.</li>
             </ul>
           </div>
-          <div className="relative overflow-hidden rounded-xl">
-            <Image src={PHOTOS.driver.src} alt={PHOTOS.driver.alt} width={1200} height={800} sizes="(min-width: 1024px) 50vw, 100vw" className="aspect-[3/2] w-full bg-brand-700 object-cover" />
-            <div className="absolute inset-x-4 bottom-4 rounded-lg bg-white/95 p-4 text-slate-900 shadow-lg backdrop-blur sm:inset-x-6 sm:bottom-6 sm:max-w-sm">
-              <p className="text-sm font-semibold">New job from Harborline Forwarding</p>
-              <p className="mt-1 text-sm text-slate-600">1 × 40&apos; HC · Long Beach to Ontario, CA · Pickup Tue 6:00</p>
-              <div className="mt-3 flex gap-2 text-sm">
-                <span className="rounded-md bg-brand-600 px-3 py-1.5 font-semibold text-white">Review job</span>
-                <span className="px-1 py-1.5 text-slate-500">Expires in 14 days</span>
-              </div>
+          <div className="rounded-xl bg-white p-6 text-slate-900 shadow-2xl shadow-brand-950/40 sm:p-8">
+            <p className="text-sm text-slate-500">Shared by Red River Drayage</p>
+            <p className="mt-1 font-mono text-lg font-medium">MSDU 482019-3</p>
+            <p className="text-sm text-slate-600">Long Beach, Pier T to Ontario, CA</p>
+            <div className="mt-5 flex items-center justify-between rounded-lg bg-emerald-50 px-4 py-3 text-sm">
+              <span className="font-semibold text-emerald-800">Delivered</span>
+              <span className="text-emerald-700">Tue 10:51 am</span>
+            </div>
+            <ul className="mt-5 divide-y divide-slate-100 border-y border-slate-100 text-sm">
+              {[["Signed POD", "PDF · 1 page"], ["Gate receipt", "Image"], ["Delivery order", "PDF · 2 pages"]].map(([n, m]) => (
+                <li key={n} className="flex items-center justify-between py-3">
+                  <span><span className="font-medium">{n}</span> <span className="text-slate-500">{m}</span></span>
+                  <span className="font-medium text-brand-600">Download</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-xs text-slate-500">This link expires in 30 days.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Forwarders, secondary */}
+      <section id="forwarders" className="scroll-mt-8 bg-white">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_1.1fr] lg:gap-16 lg:py-24">
+          <Image src={PHOTOS.forwarders.src} alt={PHOTOS.forwarders.alt} width={1200} height={900} sizes="(min-width: 1024px) 45vw, 100vw" className="aspect-[4/3] w-full rounded-xl bg-slate-200 object-cover" />
+          <div>
+            <p className="text-sm font-semibold text-brand-600">For forwarders and brokers</p>
+            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-brand-900 sm:text-4xl">Working with carriers on Haulbook?</h2>
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              Open a shared link and you have the status and the POD. If you send a lot of moves, create a forwarder
+              account to send loads to your carriers, keep a private approved-carrier list, and see all your
+              shipments in one place.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/signup" className={primaryLight}>Create a forwarder account</Link>
+              <Link href="/contact" className="inline-flex min-h-11 items-center justify-center rounded-md border border-slate-300 px-5 text-sm font-semibold text-slate-900 hover:bg-slate-50">Talk to a specialist</Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Security */}
-      <section id="security" className="scroll-mt-8 bg-white">
+      <section id="security" className="scroll-mt-8 border-t border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
             <div>
-              <h2 className="text-3xl font-semibold tracking-tight text-brand-900 sm:text-4xl">Your shipments stay yours.</h2>
+              <h2 className="text-3xl font-semibold tracking-tight text-brand-900 sm:text-4xl">Your book stays yours.</h2>
               <p className="mt-5 max-w-md text-lg leading-8 text-slate-600">
-                Forwarders and carriers trust us with rates, customers and documents. We built the platform so that
-                trust is enforced, not promised.
+                Your customers, rates and paperwork are your business. Haulbook only shows people what you share with them.
               </p>
             </div>
             <dl className="grid gap-8 sm:grid-cols-2">
               {[
-                ["Company-level isolation", "Every record belongs to a company, and the database itself refuses access to anyone outside it. Changing a URL or ID gets you nothing."],
+                ["Walled off by company", "Every record belongs to your company, and the database refuses anyone outside it. Changing a link or ID gets nobody in."],
                 ["Private documents", "Files are never public. Downloads use short-lived links issued only after an access check."],
-                ["Internal notes stay internal", "Carrier notes are hidden from forwarders and forwarder notes from carriers, and the interface marks which is which."],
-                ["A full audit trail", "Status changes, approvals, invitations and document replacements are recorded with who did it and when."],
+                ["You decide what's shared", "Shared links show the load and the documents you pick. Rates and internal notes are never included."],
+                ["A record of who did what", "Status updates, document uploads and shared-link views are logged with who and when."],
               ].map(([t, d]) => (
                 <div key={t} className="border-t-2 border-brand-900 pt-4">
                   <dt className="font-semibold text-slate-900">{t}</dt>
@@ -193,12 +219,12 @@ export default function Home() {
         <Image src={PHOTOS.yard.src} alt="" fill sizes="100vw" className="-z-20 object-cover opacity-35" />
         <div aria-hidden className="absolute inset-0 -z-10 bg-brand-950/70" />
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24">
-          <h2 className="max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">Bring your next move onto ProjectLock.</h2>
+          <h2 className="max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">Put your next load in the book.</h2>
           <p className="mt-4 max-w-xl text-lg leading-8 text-slate-300">
-            Carriers can start free. Forwarders, talk with a specialist about volume and how to onboard the carriers you already use.
+            Free to start for carriers and owner-operators. Add your drivers and share your first POD today.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/signup" className={primary}>Create a free account</Link>
+            <Link href="/signup" className={primary}>Start free</Link>
             <Link href="/pricing" className={secondaryDark}>See pricing</Link>
           </div>
         </div>
@@ -207,21 +233,21 @@ export default function Home() {
   );
 }
 
-function Audience({
-  id, photo, title, lead, points, cta, reverse = false,
+function Feature({
+  id, photo, eyebrow, title, points, cta, reverse = false,
 }: {
-  id: string; photo: { src: string; alt: string }; title: string; lead: string;
-  points: [string, string][]; cta: { href: string; label: string }; reverse?: boolean;
+  id: string; photo: { src: string; alt: string }; eyebrow: string; title: string;
+  points: [string, string][]; cta?: { href: string; label: string }; reverse?: boolean;
 }) {
   return (
     <section id={id} className="scroll-mt-8 bg-white">
-      <div className={`mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:py-24`}>
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:py-24">
         <div className={reverse ? "lg:order-2" : undefined}>
           <Image src={photo.src} alt={photo.alt} width={1200} height={1000} sizes="(min-width: 1024px) 50vw, 100vw" className="aspect-[6/5] w-full rounded-xl bg-slate-200 object-cover" />
         </div>
         <div>
-          <p className="text-sm font-semibold text-brand-600">{title}</p>
-          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-brand-900 sm:text-4xl">{lead}</h2>
+          <p className="text-sm font-semibold text-brand-600">{eyebrow}</p>
+          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-brand-900 sm:text-4xl">{title}</h2>
           <dl className="mt-8 space-y-6">
             {points.map(([t, d]) => (
               <div key={t}>
@@ -230,7 +256,7 @@ function Audience({
               </div>
             ))}
           </dl>
-          <Link href={cta.href} className={`${primaryLight} mt-8`}>{cta.label}</Link>
+          {cta && <Link href={cta.href} className={`${primaryLight} mt-8`}>{cta.label}</Link>}
         </div>
       </div>
     </section>

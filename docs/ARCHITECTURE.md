@@ -1,6 +1,6 @@
-# ProjectLock — Architecture & Implementation Plan
+# Haulbook — Architecture & Implementation Plan
 
-Working name: **ProjectLock** (from the repo name; set `NEXT_PUBLIC_APP_NAME` to change it in the UI).
+Working name: **Haulbook** (from the repo name; set `NEXT_PUBLIC_APP_NAME` to change it in the UI).
 
 A shared operational workspace where ocean freight forwarders and drayage carriers coordinate
 existing container moves: jobs, delivery orders, documents, messages, statuses and POD.

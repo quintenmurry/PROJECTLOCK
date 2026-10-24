@@ -22,7 +22,7 @@ export default async function Onboarding() {
       </header>
       <main className="mx-auto max-w-xl px-4 pb-16 pt-4 sm:pt-10">
         <h1 className="text-2xl font-semibold tracking-tight">{firstName ? `Welcome, ${firstName}` : "Welcome"}</h1>
-        <p className="mt-1 text-sm text-slate-500">Set up your company to start coordinating moves.</p>
+        <p className="mt-1 text-sm text-slate-500">Set up your company to start tracking loads.</p>
 
         <div className="mt-6 space-y-4">
           {blocked.map((c) => (

@@ -5,8 +5,8 @@ import { Alert, Field, Input, cx } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
 
 const kinds = [
-  { value: "forwarder", title: "Freight forwarder", body: "I send container moves to drayage carriers and need to track them." },
-  { value: "carrier", title: "Drayage carrier", body: "I receive moves from forwarders and dispatch them to my drivers." },
+  { value: "carrier", title: "Carrier or owner-operator", body: "I haul containers and want my loads and paperwork in one place." },
+  { value: "forwarder", title: "Forwarder or broker", body: "I send container moves to drayage carriers and need to track them." },
 ] as const;
 
 export function OnboardingForm() {
