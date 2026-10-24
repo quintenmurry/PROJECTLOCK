@@ -3,7 +3,7 @@
 A shared workspace where ocean freight forwarders and drayage carriers coordinate container moves:
 jobs, delivery orders, documents, messages, statuses and proof of delivery.
 
-**Status: Milestones 1–2 of 7** — accounts, roles and permissions; carrier profiles, directory and approvals; public website.
+**Status: Milestones 1–3 of 7** — accounts and permissions; carrier directory; shipments with paperwork, customer share links and a driver phone view.
 The full plan (architecture, schema, permission model and milestones) is in
 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
@@ -32,6 +32,20 @@ company type.
   owners/admins approve, suspend or remove), internal notes the carrier never sees
 - Contact details and insurance are shown only to forwarders that approved the carrier
 - Platform admins can verify carriers; changing insurance or USDOT/MC sends a carrier back to review
+
+### Milestone 3
+
+- **Shipments** (carrier side): dispatch board with counts (not dispatched, today, on the road,
+  delivered without POD, open problems), views, search by container/booking/B/L/customer/ref/#number,
+  driver and date filters
+- **Shipment workspace**: one page per load with status progress, paperwork (upload, view, download,
+  replace with history, share or keep private), activity timeline, internal notes, problems, details,
+  and customer share links (create, email, see opens and downloads, turn off)
+- **Customer share page** (`/share/...`): status, containers, route, shared documents and a big
+  "Download POD" button; no account needed
+- **Driver phone view** (`/driver`): assigned loads only, big Picked up / Delivered / Empty returned
+  buttons, camera upload, report a problem, note to dispatch
+- Rates and invoices are never shared; drivers never see them or internal notes
 
 Photos come from Unsplash; swap them in `src/lib/photos.ts`.
 

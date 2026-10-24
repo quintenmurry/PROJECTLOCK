@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { canManage, requireCompany } from "@/lib/session";
@@ -10,6 +11,7 @@ export const metadata: Metadata = { title: "Overview" };
 
 export default async function Dashboard() {
   const company = await requireCompany();
+  if (company.role === "driver") redirect("/driver");
   const supabase = await createClient();
   const manage = canManage(company);
 
@@ -39,11 +41,11 @@ export default async function Dashboard() {
   const next =
     company.kind === "forwarder"
       ? ["Create jobs and send them to carriers, including carriers without an account", "Attach delivery orders and collect PODs on each job", "Track acknowledgments, milestones and exceptions on one dashboard"]
-      : ["Receive, accept and dispatch jobs from forwarders", "Keep every job's documents and messages in one place", "Collect gate receipts and PODs from drivers on their phones"];
+      : ["Accept loads that forwarders send you on Haulbook", "Message customers from inside the shipment", "Reports and CSV exports of your history"];
   const start =
     company.kind === "forwarder"
       ? { href: "/carriers", title: "Build your approved carrier list", body: "Search carriers by port, terminal, delivery area and equipment, then approve the ones you work with." }
-      : { href: "/profile", title: "Complete your carrier profile", body: "Add your ports, terminals, delivery areas and equipment, then list your company so forwarders can find you." };
+      : { href: "/shipments/new", title: "Add your first shipment", body: "Put a load and its paperwork in the book, assign a driver, and share the POD with your customer from a link." };
 
   return (
     <>

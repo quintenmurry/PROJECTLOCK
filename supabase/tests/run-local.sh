@@ -11,5 +11,5 @@ trap '"$PGBIN/pg_ctl" -D "$TMP/data" stop -m fast >/dev/null 2>&1 || true; rm -r
 sleep 1
 P="psql -h $TMP -p $PORT -U postgres -v ON_ERROR_STOP=1 -q -d postgres"
 $P -f tests/00_local_shim.sql
-for f in migrations/*.sql; do $P -f "$f"; done
+for f in migrations/*.sql; do case "$f" in *_storage.sql) continue;; esac; $P -f "$f"; done
 for t in tests/0[1-9]_*.sql; do $P -f "$t" | grep -E "PASSED|FAIL"; done

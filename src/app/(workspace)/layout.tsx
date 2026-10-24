@@ -9,15 +9,26 @@ export default async function WorkspaceLayout({ children }: { children: React.Re
   const [company, companies, admin] = await Promise.all([requireCompany(), getMyCompanies(), isPlatformAdmin()]);
   const name = (user.user_metadata?.full_name as string | undefined) || user.email;
 
+  const isDriver = company.role === "driver";
   const nav = (
     <nav className="space-y-0.5" aria-label="Main">
-      <NavLink href="/dashboard">Overview</NavLink>
-      {company.kind === "forwarder" && <NavLink href="/carriers">Carriers</NavLink>}
-      {company.kind === "carrier" && <NavLink href="/profile">Carrier profile</NavLink>}
-      {company.kind === "carrier" && <NavLink href="/customers">Customers</NavLink>}
-      <NavLink href="/team">Team</NavLink>
-      <NavLink href="/settings/company">Company</NavLink>
-      <NavLink href="/account">My account</NavLink>
+      {isDriver ? (
+        <>
+          <NavLink href="/driver">My loads</NavLink>
+          <NavLink href="/account">My account</NavLink>
+        </>
+      ) : (
+        <>
+          {company.kind === "carrier" && <NavLink href="/shipments">Shipments</NavLink>}
+          <NavLink href="/dashboard">Overview</NavLink>
+          {company.kind === "forwarder" && <NavLink href="/carriers">Carriers</NavLink>}
+          {company.kind === "carrier" && <NavLink href="/profile">Carrier profile</NavLink>}
+          {company.kind === "carrier" && <NavLink href="/customers">Customers</NavLink>}
+          <NavLink href="/team">Team</NavLink>
+          <NavLink href="/settings/company">Company</NavLink>
+          <NavLink href="/account">My account</NavLink>
+        </>
+      )}
       {admin && (
         <>
           <div className="px-2.5 pb-1 pt-4 text-[11px] font-semibold uppercase tracking-wider text-slate-500">Platform</div>

@@ -27,3 +27,8 @@ grant execute on function auth.jwt(), auth.uid() to anon, authenticated, service
 alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
 alter default privileges in schema public grant all on functions to anon, authenticated, service_role;
 alter default privileges in schema public grant all on sequences to anon, authenticated, service_role;
+
+-- Minimal storage stand-in (the real one is Supabase Storage)
+create schema storage;
+create table storage.objects (id uuid primary key default gen_random_uuid(), bucket_id text, name text);
+grant usage on schema storage to authenticated;

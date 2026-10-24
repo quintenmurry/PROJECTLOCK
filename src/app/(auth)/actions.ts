@@ -31,7 +31,7 @@ export async function signIn(_: ActionState, form: FormData): Promise<ActionStat
           : "Incorrect email or password.";
     return { error: msg, data: { email: parsed.data.email } };
   }
-  redirect(safeNext(String(form.get("next") ?? "")));
+  redirect(safeNext(String(form.get("next") ?? ""), "/dashboard"));
 }
 
 export async function signUp(_: ActionState, form: FormData): Promise<ActionState> {

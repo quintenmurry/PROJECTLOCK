@@ -8,6 +8,33 @@ Not a brokerage, load board or TMS.
 
 ---
 
+---
+
+## Product direction (Oct 2026)
+
+Haulbook is pitched to **drayage carriers and owner-operators first**: it replaces the customer portal a
+carrier would otherwise have to build. Every **shipment is self-contained**: its containers, driver,
+paperwork, status history, internal notes and customer share links all live on one page, from creation
+to POD. Customers (forwarders, brokers, shippers, warehouses) get a **share link** to one shipment and
+never need an account. Forwarder accounts, the carrier directory and approvals (Milestone 2) remain for
+forwarders who send volume.
+
+### Milestone 3 as built
+- `shipments` owned by a carrier company (`carrier_company_id`); optional `forwarder_company_id` reserved
+  for forwarder-sent loads later. Human numbers per carrier (#1001…) via `company_counters`.
+- `shipment_containers` (many per shipment), `shipment_events` (timeline: status with source
+  dispatch/driver/share_link, notes, uploads, assignment, problems, link opened, document downloaded),
+  `shipment_documents` (two-step upload: reserve path → upload to private bucket → confirm; replacements keep
+  history; rates/invoices can never be shared), `shipment_share_links` (hashed tokens, expiry, revoke,
+  open counts).
+- Access: owner/admin/dispatcher see all company shipments (RLS). Drivers see only assigned loads through
+  RPCs that omit internal notes, and never see rates or invoices. Drivers can only move a load forward
+  through picked up → delivered → empty returned.
+- Files: private Storage bucket `shipment-documents`; storage policies allow upload only to a path reserved
+  for that user and reads only for permitted users. Signed-in downloads go through `/documents/[id]`
+  (2-minute signed URL). Share-link downloads go through the `shared-file` Edge Function, which checks the
+  token with the service role and logs the download.
+
 ## 1. Architecture
 
 ```
@@ -215,8 +242,8 @@ the `update_status` permission, or a verified integration can record pickup/deli
 |---|---|---|
 | 1 | Auth (sign up, sign in, password reset), company creation & onboarding, roles, team invitations, member management, company switcher, platform admin (companies, suspend/reactivate, audit log), RLS + isolation tests | Done |
 | 2 | Carrier profiles, directory search/filter, per-forwarder approvals, platform verification, public website + specialist inquiries | Done |
-| 3 | Job creation (multi-container), send to carrier, guest links, accept/decline, status workflow, job detail + timeline | Next |
-| 4 | Private document storage, required-doc tracking, POD, job messaging with internal notes | |
+| 3 | Carrier shipments (multi-container), dispatch board, self-contained shipment workspace, documents + POD, customer share links, driver phone view | Done |
+| 4 | Forwarder-sent loads and accept/decline, customer messaging on the shipment, email notifications | Next |
 | 5 | Dashboards & filters, notifications + exception queue, audit history, reports, CSV export | |
 | 6 | Mobile driver workflow, driver assignment, operational extras | |
 | 7 | Billing, API, EDI — only when customers ask for it | |
